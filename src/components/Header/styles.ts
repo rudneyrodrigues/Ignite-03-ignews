@@ -52,5 +52,9 @@ export const HeaderContainer = styled.header`
         }
       }
     }
+
+    button {
+      margin-left: auto;
+    }
   }
 `;

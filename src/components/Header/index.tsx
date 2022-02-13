@@ -1,3 +1,5 @@
+import { SignInButton } from '../SignInButton';
+
 import { HeaderContainer } from './styles';
 
 export function Header() {
@@ -10,6 +12,8 @@ export function Header() {
           <a className="active">Home</a>
           <a>Post</a>
         </nav>
+
+        <SignInButton />
       </div>
     </HeaderContainer>
   )
