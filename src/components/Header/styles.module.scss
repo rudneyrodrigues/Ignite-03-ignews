@@ -1,6 +1,4 @@
-import styled from 'styled-components';
-
-export const HeaderContainer = styled.header`
+.headerContainer {
   height: 5rem;
   border-bottom: 1px solid var(--gray-800);
 
@@ -57,4 +55,4 @@ export const HeaderContainer = styled.header`
       margin-left: auto;
     }
   }
-`;
+}
