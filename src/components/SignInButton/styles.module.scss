@@ -17,6 +17,7 @@
   svg {
     width: 20px;
     height: 20px;
+    border-radius: 10px;
 
     &:first-child {
       margin-right: 1rem;
@@ -24,6 +25,11 @@
 
     &.closeIcon {
       margin-left: 1rem;
+      transition: background 0.2s;
+
+      &:hover {
+        background: #a53939;
+      }
     }
   }
 
