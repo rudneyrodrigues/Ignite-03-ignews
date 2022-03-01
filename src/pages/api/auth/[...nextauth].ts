@@ -8,6 +8,7 @@ import { fauna } from '../../../services/fauna';
 export default NextAuth({
   // Configure one or more authentication providers
   providers: [
+    // Authentication with Github
     GithubProvider({
       clientId: process.env.GITHUB_ID,
       clientSecret: process.env.GITHUB_SECRET,
@@ -24,6 +25,7 @@ export default NextAuth({
     async signIn({ user, account, profile }) {
       const { email } = user
 
+      // Create a new user in the FaunaDB database
       try {
         await fauna.query(
           q.If(
@@ -54,7 +56,6 @@ export default NextAuth({
 
         return false
       }
-
     },
   }
 })
