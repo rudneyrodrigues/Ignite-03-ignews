@@ -74,6 +74,7 @@ export default async function Subscribe(req: NextApiRequest, res: NextApiRespons
       sessionId: stripeCheckoutSession.id,
     })
   } else {
+    // Informs the Front-End that the method is not allowed
     res.setHeader('Allow', 'POST');
     res.status(405).end(`Method Not Allowed`);
   }
