@@ -24,7 +24,9 @@ export const config = {
 }
 
 const relevantEvents = new Set([
-  'checkout.session.completed'
+  'checkout.session.completed',
+  'customer.subscription.updated',
+  'customer.subscription.deleted',
 ])
 
 export default async function Webhooks (req: NextApiRequest, res: NextApiResponse) {
@@ -35,7 +37,11 @@ export default async function Webhooks (req: NextApiRequest, res: NextApiRespons
     let event:Stripe.Event;
 
     try {
-      event = stripe.webhooks.constructEvent(buf, String(secret), String(process.env.STRIPE_WEBHOOK_SECRET));
+      event = stripe.webhooks.constructEvent(
+        buf,
+        String(secret),
+        String(process.env.STRIPE_WEBHOOK_SECRET)
+      );
     } catch (err) {
       return res.status(400).send(`Webhook Error: ${err}`);
     }
@@ -45,13 +51,24 @@ export default async function Webhooks (req: NextApiRequest, res: NextApiRespons
     if (relevantEvents.has(type)) {
       try {
         switch (type) {
+          case 'customer.subscription.updated':
+          case 'customer.subscription.deleted':
+
+            const subscription = event.data.object as Stripe.Subscription;
+
+            await saveSubscription(
+              subscription.id,
+              subscription.customer.toString(),
+            );
+
           case 'checkout.session.completed':
 
-            const checkoutSession = event.data.object as Stripe.Subscription;
+            const checkoutSession = event.data.object as Stripe.Checkout.Session;
             
             await saveSubscription(
-              checkoutSession.id,
-              checkoutSession.customer?.toString(),
+              checkoutSession.subscription.toString(),
+              checkoutSession.customer.toString(),
+              true
             );
 
             break;
