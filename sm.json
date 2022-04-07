@@ -1,6 +1,7 @@
 {
-	"_latest": "0.3.3",
+	"_latest": "0.3.4",
 	"apiEndpoint": "https://ignews-rudney.prismic.io/api/v2",
+	"localSliceSimulatorURL": "http://localhost:3000/slice-simulator",
 	"libraries": [
 		"@/slices"
 	]

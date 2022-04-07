@@ -1,4 +1,7 @@
 {
+  "slices": {
+    "Posts": {}
+  },
   "_cts": {
     "publication": {
       "content": {
