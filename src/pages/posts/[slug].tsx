@@ -40,14 +40,16 @@ export const getServerSideProps: GetServerSideProps = async ({req, params}: any)
   const session = await getSession({ req });
   const { slug } = params;
 
-  // if (!session?.activeSubscription) {
-  //   return {
-  //     redirect: {
-  //       destination: `/posts/preview/${slug}`,
-  //       permanent: false,
-  //     }
-  //   }
-  // }
+  // console.log(session);
+
+  if (!session?.activeSubscription) {
+    return {
+      redirect: {
+        destination: `/posts/preview/${slug}`,
+        permanent: false,
+      }
+    }
+  }
 
   const client = createClient();
 

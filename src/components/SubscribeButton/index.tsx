@@ -1,4 +1,5 @@
 import { signIn, useSession } from 'next-auth/react';
+import { useRouter } from 'next/router';
 
 import { api } from '../../services/api';
 import { getStripeJs } from '../../services/stripe-js';
@@ -12,12 +13,18 @@ interface SubscribeButtonProps {
 export function SubscribeButton({ priceId }: SubscribeButtonProps) {
   // Getting current session information.
   const {data: session} = useSession();
+  const router = useRouter();
 
   // This function redirects the user to the Stripe payments screen.
   async function handleSubscribe() {
     // Verifies if the user is logged in.
     if (!session) {
       signIn('github');
+      return;
+    }
+
+    if (session.activeSubscription) {
+      router.push('/posts');
       return;
     }
 
