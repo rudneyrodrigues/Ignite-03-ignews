@@ -20,17 +20,13 @@ interface PostPreviewProps {
 }
 
 export default function PostPreview({ post }: PostPreviewProps) {
-  const {
-    data: session, status
-  } = useSession();
+  const {data: session} = useSession();
   const router = useRouter();
 
   useEffect(() => {
     if (session?.activeSubscription) {
       router.push(`/posts/${post.slug}`)
     }
-
-    console.log(session)
   }, [session])
 
   return (
@@ -50,7 +46,7 @@ export default function PostPreview({ post }: PostPreviewProps) {
           <div className={styles.continueReading}>
             Wanna continue reading?
             <Link href="/">
-              <a>Subscribe now 😉</a>
+              <a>Subscribe now 🤗</a>
             </Link>
           </div>
         </article>
